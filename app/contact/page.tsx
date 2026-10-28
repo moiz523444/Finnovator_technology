@@ -1,130 +1,113 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
+import { PageHero } from '@/components/page-hero'
+import { Reveal } from '@/components/reveal'
+import { SpotlightCard } from '@/components/spotlight-card'
+
+const offices = [
+  { city: 'Karachi (HQ)', lines: ['Burj Ul Minal, Office # 506', 'Gulistan-e-Johar', 'Karachi, Pakistan'] },
+]
 
 export default function ContactPage() {
-  const heroRef = useRef<HTMLElement>(null)
-  const textRefs = useRef<(HTMLHeadingElement | null)[]>([])
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(textRefs.current,
-        { y: '100%', opacity: 0, rotateZ: 2 },
-        { y: '0%', opacity: 1, rotateZ: 0, duration: 1.8, stagger: 0.15, ease: 'power4.out', delay: 0.1 }
-      )
-    })
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <main className="bg-[#050505] text-[#f5f5f5] min-h-screen selection:bg-white selection:text-black pt-32">
+    <main className="bg-[#050507] text-[#f5f5f5] min-h-screen">
+      <PageHero
+        eyebrow="Let's Connect"
+        lines={['BUILD', 'THE', 'FUTURE.']}
+        description="Whether you have a fully formed RFP or just a napkin sketch, we want to hear about it. Drop us a line and let's engineer something impossible together."
+      />
 
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative px-6 md:px-12 py-20 flex flex-col items-start justify-center min-h-[60vh] border-b border-white/5">
-        <span className="eyebrow mb-8">Let's Connect</span>
-        <div className="overflow-hidden pb-4">
-          <h1 ref={el => { textRefs.current[0] = el }} className="text-[12vw] md:text-[8vw] leading-[0.8] font-bold tracking-tighter uppercase text-white">BUILD</h1>
-        </div>
-        <div className="overflow-hidden pb-4">
-          <h1 ref={el => { textRefs.current[1] = el }} className="text-[12vw] md:text-[8vw] leading-[0.8] font-bold tracking-tighter uppercase text-outline">THE</h1>
-        </div>
-        <div className="overflow-hidden pb-4">
-          <h1 ref={el => { textRefs.current[2] = el }} className="text-[12vw] md:text-[8vw] leading-[0.8] font-bold tracking-tighter uppercase text-white">FUTURE.</h1>
-        </div>
-
-        <p className="mt-12 font-mono text-sm md:text-base text-zinc-400 max-w-2xl leading-relaxed">
-          Whether you have a fully formed RFP or just a napkin sketch, we want to hear about it. Drop us a line and let's engineer something impossible together.
-        </p>
-      </section>
-
-      {/* Contact Content */}
-      <section className="py-32 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 lg:gap-32">
+      <section className="py-24 md:py-32 px-6 md:px-12 relative overflow-hidden">
+        <div className="aurora w-[45vw] h-[45vw] top-1/4 -left-[15vw] bg-[#01a0e2]/10" />
+        <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
 
           {/* Form */}
-          <div className="flex-1 order-2 lg:order-1">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-12">Send a Message</h2>
-            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="font-mono text-xs uppercase text-zinc-500 tracking-widest">First Name</label>
-                  <input type="text" className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-white transition-colors" placeholder="John" />
+          <Reveal className="lg:col-span-7 order-2 lg:order-1">
+            <div className="glass rounded-[32px] p-8 md:p-12 shadow-[0_40px_120px_-50px_rgba(1,160,226,0.5)]">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-3">Send a <span className="serif-accent text-gradient">message</span></h2>
+              <p className="font-mono text-sm text-zinc-500 mb-10">Our team will get back to you within 24 hours.</p>
+
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="c-first" className="field-label">First Name</label>
+                    <input id="c-first" type="text" className="field" placeholder="John" />
+                  </div>
+                  <div>
+                    <label htmlFor="c-last" className="field-label">Last Name</label>
+                    <input id="c-last" type="text" className="field" placeholder="Doe" />
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="font-mono text-xs uppercase text-zinc-500 tracking-widest">Last Name</label>
-                  <input type="text" className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-white transition-colors" placeholder="Doe" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="c-email" className="field-label">Email Address</label>
+                    <input id="c-email" type="email" className="field" placeholder="john@company.com" />
+                  </div>
+                  <div>
+                    <label htmlFor="c-company" className="field-label">Company / Organization</label>
+                    <input id="c-company" type="text" className="field" placeholder="Acme Corp" />
+                  </div>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="font-mono text-xs uppercase text-zinc-500 tracking-widest">Email Address</label>
-                <input type="email" className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-white transition-colors" placeholder="john@company.com" />
-              </div>
+                <div>
+                  <label htmlFor="c-details" className="field-label">Project Details</label>
+                  <textarea id="c-details" className="field resize-none min-h-[170px]" placeholder="Tell us about your goals..."></textarea>
+                </div>
 
-              <div className="space-y-2">
-                <label className="font-mono text-xs uppercase text-zinc-500 tracking-widest">Company / Organization</label>
-                <input type="text" className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-white transition-colors" placeholder="Acme Corp" />
-              </div>
-
-              <div className="space-y-2">
-                <label className="font-mono text-xs uppercase text-zinc-500 tracking-widest">Project Details</label>
-                <textarea className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-white transition-colors resize-none min-h-[150px]" placeholder="Tell us about your goals..."></textarea>
-              </div>
-
-              <button className="px-10 py-5 bg-transparent border border-white/20 hover:border-white text-white font-mono text-sm uppercase tracking-widest font-bold transition-colors rounded-full mt-8 w-full md:w-auto">
-                Submit Inquiry
-              </button>
-            </form>
-          </div>
+                <button className="btn-primary w-full md:w-auto group !px-10">
+                  Submit Inquiry <ArrowUpRight size={14} className="group-hover:rotate-45 transition-transform duration-500" />
+                </button>
+              </form>
+            </div>
+          </Reveal>
 
           {/* Contact Info */}
-          <div className="flex-1 order-1 lg:order-2 space-y-16">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-12">Global Offices</h2>
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <MapPin className="text-zinc-500 mt-1" />
+          <div className="lg:col-span-5 order-1 lg:order-2 space-y-5">
+            <Reveal>
+              <span className="eyebrow mb-6">Our Office</span>
+            </Reveal>
+            {offices.map((o, i) => (
+              <Reveal key={o.city} delay={i * 0.08}>
+                <SpotlightCard className="rounded-[24px] p-7 flex items-start gap-5">
+                  <span className="w-11 h-11 rounded-xl border border-white/10 bg-gradient-to-br from-[#01a0e2]/20 to-transparent flex items-center justify-center shrink-0">
+                    <MapPin size={18} className="text-[#5ccdfb]" />
+                  </span>
                   <div>
-                    <h4 className="font-bold text-xl mb-2">New York (HQ)</h4>
-                    <p className="font-mono text-zinc-400">1200 Innovation Drive<br />Suite 400<br />New York, NY 10011</p>
+                    <h4 className="font-bold text-xl mb-2 tracking-tight">{o.city}</h4>
+                    <p className="font-mono text-sm text-zinc-400 leading-relaxed">
+                      {o.lines.map((l, j) => <span key={j} className="block">{l}</span>)}
+                    </p>
                   </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <MapPin className="text-zinc-500 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-xl mb-2">London</h4>
-                    <p className="font-mono text-zinc-400">Level 39, One Canada Square<br />Canary Wharf<br />London E14 5AB</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+                </SpotlightCard>
+              </Reveal>
+            ))}
 
-            <div className="pt-16 border-t border-white/10">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-12">Direct Lines</h2>
-              <div className="space-y-8">
-                <div className="flex items-center gap-4">
-                  <Mail className="text-zinc-500" />
-                  <a href="mailto:info@finnovatortech.com" className="relative group font-mono text-lg hover:text-white transition-colors text-zinc-300">
-                    info@finnovatortech.com
-                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 ease-out group-hover:w-full"></span>
+            <Reveal delay={0.16}>
+              <span className="eyebrow mt-12 mb-6">Direct Lines</span>
+            </Reveal>
+            {[
+              { icon: Mail, label: 'info@finnovatortech.com', href: 'mailto:info@finnovatortech.com' },
+              { icon: Phone, label: '+92 328 2333777', href: 'tel:+923282333777' },
+            ].map((c, i) => {
+              const Icon = c.icon
+              return (
+                <Reveal key={c.href} delay={0.2 + i * 0.08}>
+                  <a href={c.href} className="group glass rounded-[24px] p-6 flex items-center gap-5 hover:border-[#01a0e2]/40 transition-colors">
+                    <span className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center shrink-0">
+                      <Icon size={18} className="text-[#5ccdfb]" />
+                    </span>
+                    <span className="font-mono text-base md:text-lg text-zinc-200 group-hover:text-white transition-colors">{c.label}</span>
+                    <ArrowUpRight size={18} className="ml-auto text-zinc-500 group-hover:text-white group-hover:rotate-45 transition-all duration-500" />
                   </a>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Phone className="text-zinc-500" />
-                  <a href="tel:+15551234567" className="relative group font-mono text-lg hover:text-white transition-colors text-zinc-300">
-                    +1 (555) 123-4567
-                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 ease-out group-hover:w-full"></span>
-                  </a>
-                </div>
-              </div>
-            </div>
+                </Reveal>
+              )
+            })}
           </div>
 
         </div>
       </section>
-
     </main>
   )
 }
